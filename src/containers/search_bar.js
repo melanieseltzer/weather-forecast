@@ -41,6 +41,35 @@ const Input = styled.input`
   }
 `;
 
+const Radio = styled.input`
+  display: none;
+  :checked {
+    + label {
+      span {
+        background-color: salmon;
+      }
+    }
+  }
+  + label {
+    color: #595959;
+    font-family: 'Open Sans', Arial;
+    font-size: 1em;
+    margin: 0 20px 0 0;
+    span {
+      box-shadow: 0 0 0 2px #ddd;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin: 0 5px 0 0;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      background-color: #fff;
+    }
+  }
+`;
+
 const Button = styled.button`
   background: transparent;
   border: 2px solid salmon;
@@ -62,31 +91,69 @@ const Button = styled.button`
   }
 `;
 
+const Wrapper = styled.div`
+  display: block;
+  margin-bottom: 15px;
+`;
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: '' };
+    this.state = { 
+      term: '',
+      unit: 'imperial'
+    };
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onUnitChange = this.onUnitChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onInputChange(event) {
-    this.setState({ term: event.target.value });
+    this.setState({ 
+      term: event.target.value
+    });
+  }
+
+  onUnitChange(event) {
+    this.setState({
+      unit: event.target.value
+    });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
 
-    this.props.fetchWeather(this.state.term);
-    this.setState({ term: '' });
+    this.props.fetchWeather(this.state.term, this.state.unit);
+    this.setState({ 
+      term: ''
+    });
   }
 
   render() {
     return (
       <div>
         <Form onSubmit={this.onFormSubmit}>
+          <Wrapper>
+            <Radio 
+              type="radio" 
+              value="imperial"
+              id="imperial" 
+              checked={'imperial' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+            <label htmlFor="imperial"><span></span> &deg; F</label>
+            <Radio 
+              type="radio" 
+              value={"metric"}
+              id="metric" 
+              checked={'metric' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+            <label htmlFor="metric"><span></span> &deg; C</label>
+          </Wrapper>
+
           <Input
             placeholder="Enter city"
             value={this.state.term}
