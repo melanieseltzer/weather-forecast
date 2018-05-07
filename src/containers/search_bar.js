@@ -28,6 +28,7 @@ const Input = styled.input`
   background: #fff;
   border: 2px solid #ddd;
   border-radius: 5px;
+  display: inline-block;
   font-family: 'Open Sans', Arial;
   font-size: 1em;
   margin: 0 0 0.5em 0;
@@ -39,6 +40,11 @@ const Input = styled.input`
     margin: 0 1em 0 0;
     width: 70%;
   }
+`;
+
+const Label = styled.label`
+  display: block;
+  padding-bottom: 5px;
 `;
 
 const Radio = styled.input`
@@ -54,13 +60,13 @@ const Radio = styled.input`
     color: #595959;
     font-family: 'Open Sans', Arial;
     font-size: 1em;
-    margin: 0 20px 0 0;
+    margin: 0 0 0 1em;
     span {
       box-shadow: 0 0 0 2px #ddd;
       display: inline-block;
       width: 24px;
       height: 24px;
-      margin: 0 5px 0 0;
+      margin: 0 2px 0 0;
       vertical-align: middle;
       cursor: pointer;
       border-radius: 50%;
@@ -80,20 +86,20 @@ const Button = styled.button`
   font-size: 1em;
   margin: 0;
   width: 100%;
-  @media screen and (min-width: 768px) {
-    width: 27%;
-  }
   &:hover {
     background: salmon;
     color: #fff;
     cursor: pointer;
     transition: 0.7s;
   }
+  @media screen and (min-width: 768px) {
+    width: 27%;
+  }
 `;
 
-const Wrapper = styled.div`
+const WrapperRadio = styled.div`
   display: block;
-  margin-bottom: 15px;
+  margin-top: 10px;
 `;
 
 class SearchBar extends Component {
@@ -135,31 +141,36 @@ class SearchBar extends Component {
     return (
       <div>
         <Form onSubmit={this.onFormSubmit}>
-          <Wrapper>
-            <Radio 
-              type="radio" 
-              value="imperial"
-              id="imperial" 
-              checked={'imperial' === this.state.unit}
-              onChange={this.onUnitChange}
-            />
-            <label htmlFor="imperial"><span></span> &deg; F</label>
-            <Radio 
-              type="radio" 
-              value={"metric"}
-              id="metric" 
-              checked={'metric' === this.state.unit}
-              onChange={this.onUnitChange}
-            />
-            <label htmlFor="metric"><span></span> &deg; C</label>
-          </Wrapper>
-
+          <Label htmlFor="search">Enter a City:</Label>
           <Input
-            placeholder="Enter city"
+            id="search"
+            placeholder="e.g. Los Angeles"
             value={this.state.term}
             onChange={this.onInputChange}
           />
           <Button type="submit">Submit</Button>
+          <WrapperRadio>
+            <Label htmlFor="units">Result in:</Label>
+            <Radio
+              type="radio"
+              value="imperial"
+              id="imperial"
+              name="units"
+              checked={'imperial' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+            <label htmlFor="imperial"><span></span> &deg; F</label>
+            <Radio
+              type="radio"
+              value={"metric"}
+              id="metric"
+              name="units"
+              checked={'metric' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+            <label htmlFor="metric"><span></span> &deg; C</label>
+          </WrapperRadio>
+
         </Form>
 
         <Span id="errorSpan"></Span>
