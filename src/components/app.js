@@ -21,7 +21,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Heading1>5 Day Forecast</Heading1  >
+        <Heading1>Daily Forecast</Heading1>
         <SearchBar />
         <WeatherList />
       </div>

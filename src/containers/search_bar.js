@@ -150,7 +150,7 @@ class SearchBar extends Component {
           />
           <Button type="submit">Submit</Button>
           <WrapperRadio>
-            <Label htmlFor="units">Result in:</Label>
+            <Label htmlFor="units">Results in:</Label>
             <Radio
               type="radio"
               value="imperial"

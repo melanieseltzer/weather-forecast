@@ -9,6 +9,7 @@ export default function(state = [], action) {
   switch (action.type) {
   case FETCH_WEATHER:
     document.getElementById('errorSpan').innerHTML = '';
+    console.log(action.payload.request.responseURL);
     return [[action.payload.request.responseURL, action.payload.data], ...state];
   }
   
