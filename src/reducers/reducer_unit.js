@@ -1,20 +1,13 @@
-import { GET_UNIT } from '../actions/index';
+import { UPDATE_UNIT } from '../actions/index';
 
-const initialState = {
-  selected: 'imperial'
-}
-
-export default function (state = initialState, action) {
+export default function (state = 'imperial', action) {
   if (action.error) {
     return state;
   }
   
   switch (action.type) {
-    case GET_UNIT:
-      return {
-        ...state,
-        selected: action.payload
-      };
+    case UPDATE_UNIT:
+      return action.payload;
     default:
       return state;
   }

@@ -4,7 +4,7 @@ const API_KEY = '011f91cfb43ec1af90bb7a1ac999cff9';
 const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
 
 export const FETCH_WEATHER = 'FETCH_WEATHER';
-export const GET_UNIT = 'GET_UNIT';
+export const UPDATE_UNIT = 'UPDATE_UNIT';
 export const CLEAR_CITY = 'CLEAR_CITY';
 
 export function fetchWeather(city, unit) {
@@ -22,7 +22,7 @@ export function fetchWeather(city, unit) {
 
 export function getUnit(selectedUnit) {
   return {
-    type: GET_UNIT,
+    type: UPDATE_UNIT,
     payload: selectedUnit
   };
 }
