@@ -28,15 +28,7 @@ injectGlobal`
     font-size: 16px;
     height: 100%;
   }
-
-  .wi {
-    color: #fbea7e;
-    margin: 10px;
-    &:hover {
-      -webkit-animation: rotation 15s infinite linear;
-    }
-  }
-
+  
   @-webkit-keyframes rotation {
       from {-webkit-transform: rotate(0deg);}
       to   {-webkit-transform: rotate(359deg);}
@@ -89,9 +81,6 @@ injectGlobal`
     font-size: 120%;
     opacity: .5;
     top: 20px;
-  }
-  .has-float-label input:focus {
-    outline: none;
   }
 `
 

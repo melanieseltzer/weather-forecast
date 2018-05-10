@@ -64,7 +64,6 @@ class WeatherList extends Component {
         <Table 
           data={weatherInfo}
           unit={this.props.unit.selected} />
-          
       </section>
     );
   }

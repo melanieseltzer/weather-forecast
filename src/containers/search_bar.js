@@ -2,19 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeather, getUnit, clear } from '../actions/index';
-import styled from 'styled-components';
 
-const Span = styled.span`
-  color: salmon;
-  display: block;
-  margin: 5px auto;
-  padding-left: 1em;
-  text-align: left;
-  width: 100%;
-  @media screen and (min-width: 768px) {
-    width: 768px;
-  }
-`;
+import styled from 'styled-components';
+import Radio from '../components/radio';
 
 const Form = styled.form`
   display: grid;
@@ -38,46 +28,14 @@ const Input = styled.input`
   font-size: 1.2em;
   height: 70px;
   margin: 0 0 0.5em 0;
-  padding: 1em;
+  padding: 1.5em 1em 1em 1em;
   width: 100%;
   :focus {
-    outline: 0;
+    border: 0;
+    outline: thick dotted salmon;
   }
   @media screen and (min-width: 768px) {
-    margin: 0 1em 0 0;
-  }
-`;
-
-const Label = styled.label`
-  display: block;
-  padding-bottom: 5px;
-`;
-
-const Radio = styled.input`
-  display: none;
-  :checked {
-    + label {
-      span {
-        background-color: salmon;
-      }
-    }
-  }
-  + label {
-    color: #595959;
-    font-family: 'Nunito', Arial;
-    font-size: 1em;
-    margin: 0 0 0 1em;
-    span {  
-      background-color: #affbfe;
-      border: 6px solid #affbfe;
-      border-radius: 50%;
-      cursor: pointer;
-      display: inline-block;
-      height: 24px;
-      margin: 0 2px 0 0;
-      vertical-align: middle;
-      width: 24px;
-    }
+    margin: 0;
   }
 `;
 
@@ -100,11 +58,6 @@ const Button = styled.button`
     cursor: pointer;
     transition: 0.7s;
   }
-`;
-
-const WrapperRadio = styled.div`
-  display: block;
-  margin-top: 10px;
 `;
 
 class SearchBar extends Component {
@@ -131,6 +84,7 @@ class SearchBar extends Component {
     this.setState({
       unit: event.target.value
     });
+    this.props.actions.getUnit(event.target.value);
   }
 
   onFormSubmit(event) {
@@ -158,41 +112,31 @@ class SearchBar extends Component {
               value={this.state.term}
               onChange={this.onInputChange}
             />
-            <label for="search">Enter City</label>
+            <label htmlFor="search">Enter City</label>
           </div>
           <Button type="submit">Get Forecast</Button>
-          <WrapperRadio>
-            <Label htmlFor="units">Results in:</Label>
+          <div>
             <Radio
-              type="radio"
               value="imperial"
               id="imperial"
-              name="units"
               checked={'imperial' === this.state.unit}
               onChange={this.onUnitChange}
             />
-            <label htmlFor="imperial"><span></span> &deg; F</label>
             <Radio
-              type="radio"
-              value={"metric"}
+              value="metric"
               id="metric"
-              name="units"
               checked={'metric' === this.state.unit}
               onChange={this.onUnitChange}
             />
-            <label htmlFor="metric"><span></span> &deg; C</label>
-          </WrapperRadio>
-
+          </div>
         </Form>
-
-        <Span id="errorSpan"></Span>
       </section>
     );
   }
 }
 
-function mapStateToProps({ weather, unit }) {
-  return { weather, unit };
+function mapStateToProps({ weather }) {
+  return { weather };
 }
 
 function mapDispatchToProps(dispatch) {
