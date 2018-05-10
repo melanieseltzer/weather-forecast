@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from '../actions/index';
+import { fetchWeather, getUnit, clear } from '../actions/index';
 import styled from 'styled-components';
 
 const Span = styled.span`
@@ -131,9 +131,13 @@ class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
 
-    this.props.fetchWeather(this.state.term, this.state.unit);
+    this.props.actions.clear();
+    this.props.actions.getUnit(this.state.unit);
+    this.props.actions.fetchWeather(this.state.term, this.state.unit);
+
     this.setState({ 
-      term: ''
+      term: '',
+      unit: this.state.unit
     });
   }
 
@@ -179,8 +183,18 @@ class SearchBar extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchWeather }, dispatch);
+function mapStateToProps({ weather, unit }) {
+  return { weather, unit };
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      fetchWeather: bindActionCreators(fetchWeather, dispatch),
+      getUnit: bindActionCreators(getUnit, dispatch),
+      clear: bindActionCreators(clear, dispatch)
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
