@@ -10,46 +10,88 @@ import rootReducer from './reducers';
 import { injectGlobal } from 'styled-components';
 
 injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+  @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
   @import url('https://fonts.googleapis.com/css?family=Pacifico');
 
   * {
     margin: 0;
     padding: 0;
   }
-  
-  html {
-    box-sizing: border-box;
-  }
 
   *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
   body,
   html {
-    font-family: 'Open Sans', Arial;
+    font-family: 'Nunito', Arial;
     font-size: 16px;
     height: 100%;
   }
 
-  input,
-  button {
-    padding: 1em;
-  }
-  
-  input:focus::-webkit-input-placeholder { color:transparent; }
-  input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
-  input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
-  input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
-
   .wi {
+    color: #fbea7e;
     margin: 10px;
-    transform: rotate(-10deg);
-    transition: all .2s ease-in-out;
     &:hover {
-      transform: scale(1.1);
+      -webkit-animation: rotation 15s infinite linear;
     }
+  }
+
+  @-webkit-keyframes rotation {
+      from {-webkit-transform: rotate(0deg);}
+      to   {-webkit-transform: rotate(359deg);}
+  }
+
+  .has-float-label {
+    position: relative;
+  }
+  .has-float-label label, .has-float-label > span {
+    position: absolute;
+    left: 15px;
+    top: 5px;
+    cursor: text;
+    font-size: 75%;
+    opacity: 1;
+    transition: all .2s;
+  }
+  .has-float-label input {
+    font-size: inherit;
+  }
+  .has-float-label input::-webkit-input-placeholder {
+    opacity: 1;
+    transition: all .2s;
+  }
+  .has-float-label input:-ms-input-placeholder {
+    opacity: 1;
+    transition: all .2s;
+  }
+  .has-float-label input::-ms-input-placeholder {
+    opacity: 1;
+    transition: all .2s;
+  }
+  .has-float-label input::placeholder {
+    opacity: 1;
+    transition: all .2s;
+  }
+  .has-float-label input:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  .has-float-label input:placeholder-shown:not(:focus):-ms-input-placeholder {
+    opacity: 0;
+  }
+  .has-float-label input:placeholder-shown:not(:focus)::-ms-input-placeholder {
+    opacity: 0;
+  }
+  .has-float-label input:placeholder-shown:not(:focus)::placeholder {
+    opacity: 0;
+  }
+  .has-float-label input:placeholder-shown:not(:focus) + * {
+    font-size: 120%;
+    opacity: .5;
+    top: 20px;
+  }
+  .has-float-label input:focus {
+    outline: none;
   }
 `
 

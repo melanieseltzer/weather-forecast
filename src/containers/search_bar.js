@@ -17,28 +17,34 @@ const Span = styled.span`
 `;
 
 const Form = styled.form`
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 1px 1%;
   margin: 20px auto 10px auto;
   width: 100%;
   @media screen and (min-width: 768px) {
+    grid-template-columns: 3fr 1fr;
     max-width: 768px;
   }
 `;
 
 const Input = styled.input`
-  background: #fff;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  background: #affbfe;
+  border: 0;
+  border-bottom: 2px solid #E76C67;
+  box-sizing: border-box;
   display: inline-block;
-  font-family: 'Open Sans', Arial;
-  font-size: 1em;
+  font-family: 'Nunito', Arial;
+  font-size: 1.2em;
+  height: 70px;
   margin: 0 0 0.5em 0;
+  padding: 1em;
   width: 100%;
   :focus {
     outline: 0;
   }
   @media screen and (min-width: 768px) {
     margin: 0 1em 0 0;
-    width: 70%;
   }
 `;
 
@@ -58,42 +64,41 @@ const Radio = styled.input`
   }
   + label {
     color: #595959;
-    font-family: 'Open Sans', Arial;
+    font-family: 'Nunito', Arial;
     font-size: 1em;
     margin: 0 0 0 1em;
-    span {
-      box-shadow: 0 0 0 2px #ddd;
+    span {  
+      background-color: #affbfe;
+      border: 6px solid #affbfe;
+      border-radius: 50%;
+      cursor: pointer;
       display: inline-block;
-      width: 24px;
       height: 24px;
       margin: 0 2px 0 0;
       vertical-align: middle;
-      cursor: pointer;
-      border-radius: 50%;
-      border: 6px solid #fff;
-      background-color: #fff;
+      width: 24px;
     }
   }
 `;
 
 const Button = styled.button`
-  background: transparent;
-  border: 2px solid salmon;
-  border-radius: 5px;
-  font-family: 'Open Sans', Arial;
-  color: salmon;
+  background: #E76C67;
+  border: 2px solid #E76C67;
+  color: #ffe2e1;
   display: inline-block;
-  font-size: 1em;
+  font-family: 'Nunito', Arial;
+  font-size: 1.1em;
+  font-weight: 700;
+  height: 70px;
   margin: 0;
+  padding: 1em;
   width: 100%;
   &:hover {
     background: salmon;
+    border-color: salmon;
     color: #fff;
     cursor: pointer;
     transition: 0.7s;
-  }
-  @media screen and (min-width: 768px) {
-    width: 27%;
   }
 `;
 
@@ -143,16 +148,19 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div>
+      <section>
         <Form onSubmit={this.onFormSubmit}>
-          <Label htmlFor="search">Enter a City:</Label>
-          <Input
-            id="search"
-            placeholder="e.g. Los Angeles"
-            value={this.state.term}
-            onChange={this.onInputChange}
-          />
-          <Button type="submit">Submit</Button>
+          <div className="has-float-label">
+            <Input
+              type="text"
+              id="search"
+              placeholder="e.g. Los Angeles"
+              value={this.state.term}
+              onChange={this.onInputChange}
+            />
+            <label for="search">Enter City</label>
+          </div>
+          <Button type="submit">Get Forecast</Button>
           <WrapperRadio>
             <Label htmlFor="units">Results in:</Label>
             <Radio
@@ -178,7 +186,7 @@ class SearchBar extends Component {
         </Form>
 
         <Span id="errorSpan"></Span>
-      </div>
+      </section>
     );
   }
 }
