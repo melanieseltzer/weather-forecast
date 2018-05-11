@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchWeather, getUnit } from '../actions';
+import { fetchWeather } from '../actions/index';
 
 import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 import tzlookup from 'tz-lookup';
 
-import Chart from '../components/chart';
 import Table from '../components/table';
 
 class WeatherList extends Component {
   constructor (props) {
     super(props);
+    
     this.renderWeather = this.renderWeather.bind(this);
   }
+
   renderWeather(cityData) {
     // Data comes in 3 hour intervals
     // We are fetching 8 lots of data
@@ -40,30 +41,15 @@ class WeatherList extends Component {
       localTimes.push(localTime);
     }
 
-    // Create a brand new array with only what we need
-    // from the API
-    const weatherInfo = [];
-    for (let i = 0; i < count; i++) {
-      weatherInfo.push({
-        key: i,
-        temp: temps[i],
-        desc: descriptions[i],
-        id: ids[i],
-        localTime: localTimes[i]
-      });
-    }
-
     return (
       <section key={name}>
-        <h2>{name}</h2>
-        
-        <Chart 
-          temps={temps} 
-          color="salmon"  />
-
         <Table 
-          data={weatherInfo}
-          unit={this.props.unit.selected} />
+          name={name}
+          localtimes={localTimes}
+          ids={ids}
+          descs={descriptions}
+          temps={temps}
+          unit={this.props.unit} />
       </section>
     );
   }
@@ -76,8 +62,8 @@ class WeatherList extends Component {
   }
 }
 
-function mapStateToProps({ weather, unit }) {
-  return { weather, unit };
+function mapStateToProps({ weather }) {
+  return { weather };
 }
 
 export default connect(mapStateToProps)(WeatherList);

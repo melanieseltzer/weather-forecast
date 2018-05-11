@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather, getUnit, clear } from '../actions/index';
+import { fetchWeather, clear } from '../actions/index';
 
 import styled from 'styled-components';
-import Radio from '../components/radio';
 
 const Form = styled.form`
   display: grid;
@@ -70,7 +69,6 @@ class SearchBar extends Component {
     };
 
     this.onInputChange = this.onInputChange.bind(this);
-    this.onUnitChange = this.onUnitChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
@@ -80,18 +78,10 @@ class SearchBar extends Component {
     });
   }
 
-  onUnitChange(event) {
-    this.setState({
-      unit: event.target.value
-    });
-    this.props.actions.getUnit(event.target.value);
-  }
-
   onFormSubmit(event) {
     event.preventDefault();
 
     this.props.actions.clear();
-    this.props.actions.getUnit(this.state.unit);
     this.props.actions.fetchWeather(this.state.term, this.state.unit);
 
     this.setState({ 
@@ -115,20 +105,6 @@ class SearchBar extends Component {
             <label htmlFor="search">Enter City</label>
           </div>
           <Button type="submit">Get Forecast</Button>
-          <div>
-            <Radio
-              value="imperial"
-              id="imperial"
-              checked={'imperial' === this.state.unit}
-              onChange={this.onUnitChange}
-            />
-            <Radio
-              value="metric"
-              id="metric"
-              checked={'metric' === this.state.unit}
-              onChange={this.onUnitChange}
-            />
-          </div>
         </Form>
       </section>
     );
@@ -143,7 +119,6 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchWeather: bindActionCreators(fetchWeather, dispatch),
-      getUnit: bindActionCreators(getUnit, dispatch),
       clear: bindActionCreators(clear, dispatch)
     }
   };
