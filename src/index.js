@@ -24,6 +24,7 @@ injectGlobal`
 
   body,
   html {
+    background: #F0F3F7;
     font-family: 'Nunito', Arial;
     font-size: 16px;
     height: 100%;
@@ -78,9 +79,9 @@ injectGlobal`
     opacity: 0;
   }
   .has-float-label input:placeholder-shown:not(:focus) + * {
-    font-size: 120%;
+    font-size: 1.2em;
     opacity: .5;
-    top: 20px;
+    top: 1.2em;
   }
 `
 

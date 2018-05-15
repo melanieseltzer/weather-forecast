@@ -51,7 +51,6 @@ export default class App extends Component {
           </Heading1>
           <SearchBar />
         </Header>
-        <Span id="error"></Span>
         <WeatherList />
       </div>
     );

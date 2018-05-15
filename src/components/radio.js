@@ -46,7 +46,7 @@ export default class Radio extends Component {
           checked={this.props.checked}
           onChange={this.props.onChange}
         />
-        <label htmlFor={this.props.id}><span></span> &deg; {this.props.id === 'imperial' ? 'F' : 'C'}</label>
+        <label htmlFor={this.props.id}><span></span> &deg; {this.props.id}</label>
       </RadioWrapper>
     );
   }

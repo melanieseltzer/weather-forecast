@@ -1,6 +1,6 @@
 import { UPDATE_UNIT } from '../actions/index';
 
-export default function (state = 'imperial', action) {
+export default function (state = 'F', action) {
   if (action.error) {
     return state;
   }

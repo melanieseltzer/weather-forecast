@@ -1,37 +1,24 @@
-import _ from 'lodash';
 import React from 'react';
-
-import {
-  Sparkline,
-  LineSeries,
-  HorizontalReferenceLine,
-  BandLine,
-  PatternLines,
-  PointSeries
-} from '@data-ui/sparkline';
-import { allColors } from '@data-ui/theme';
+import { Sparkline, LineSeries, PointSeries } from '@data-ui/sparkline';
 
 export default (props) => {
   return (
     <div>
       <Sparkline
         ariaLabel="24 Hour Weather Forecast"
-        width={320}
-        height={100}
+        className="chart"
+        width={668}
+        height={200}
         margin={{ top: 70, right: 50, bottom: 70, left: 50}}
         data={props.temps}
       >
-        <BandLine
-          band="innerquartiles"
-          fill="url(#unique_pattern_id)"
-        />
         <LineSeries
           showArea={false}
           stroke={props.color}
         />
         <PointSeries
           points={['all']}
-          fill={allColors.grape[1]}
+          fill={props.color}
           size={5}
           stroke="#fff"
         />

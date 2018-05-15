@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather, clear } from '../actions/index';
-
 import styled from 'styled-components';
+
+import { clear, fetchWeather, updateUnit } from '../actions/index';
+import Radio from '../components/radio';
+
 
 const Form = styled.form`
   display: grid;
@@ -44,7 +46,7 @@ const Button = styled.button`
   color: #ffe2e1;
   display: inline-block;
   font-family: 'Nunito', Arial;
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: 700;
   height: 70px;
   margin: 0;
@@ -65,11 +67,12 @@ class SearchBar extends Component {
 
     this.state = { 
       term: '',
-      unit: 'imperial'
+      unit: 'F'
     };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onUnitChange = this.onUnitChange.bind(this);
   }
 
   onInputChange(event) {
@@ -78,16 +81,18 @@ class SearchBar extends Component {
     });
   }
 
+  onUnitChange(event) {
+    this.setState({
+      unit: event.target.value
+    });
+
+    this.props.actions.updateUnit(event.target.value);
+  }
+
   onFormSubmit(event) {
     event.preventDefault();
-
     this.props.actions.clear();
     this.props.actions.fetchWeather(this.state.term, this.state.unit);
-
-    this.setState({ 
-      term: '',
-      unit: this.state.unit
-    });
   }
 
   render() {
@@ -105,23 +110,34 @@ class SearchBar extends Component {
             <label htmlFor="search">Enter City</label>
           </div>
           <Button type="submit">Get Forecast</Button>
+          <div>
+            <Radio
+              value="F"
+              id="F"
+              checked={'F' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+            <Radio
+              value="C"
+              id="C"
+              checked={'C' === this.state.unit}
+              onChange={this.onUnitChange}
+            />
+          </div>
         </Form>
       </section>
     );
   }
 }
 
-function mapStateToProps({ weather }) {
-  return { weather };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      fetchWeather: bindActionCreators(fetchWeather, dispatch),
-      clear: bindActionCreators(clear, dispatch)
+      clear: bindActionCreators(clear, dispatch),
+      updateUnit: bindActionCreators(updateUnit, dispatch),
+      fetchWeather: bindActionCreators(fetchWeather, dispatch)
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);

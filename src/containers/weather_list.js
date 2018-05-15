@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchWeather } from '../actions/index';
-
 import moment from 'moment';
 import momentTimezone from 'moment-timezone';
 import tzlookup from 'tz-lookup';
+import styled from 'styled-components';
 
-import Table from '../components/table';
+import Chart from '../components/chart';
+
+const WeatherContainer = styled.section`
+  background: #fff;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+  color: hsl(0, 0%, 13%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 2em;
+  text-align: center;
+  svg {
+    display: none;
+  }
+  span.item {
+    display: block;
+    margin-bottom: 10px;
+  }
+  i {
+    color: salmon;
+    font-size: 30px;
+  }
+  @media screen and (min-width: 768px) {
+    max-width: 768px;
+    margin: 1em auto;
+    svg {
+      display: block;
+    }
+  }
+`;
+
+const WeatherGridItem = styled.div`
+  grid-column: ${props => props.full ? 'span 4 / auto' : 'span 1 / auto'};
+`;
 
 class WeatherList extends Component {
   constructor (props) {
     super(props);
-    
+
     this.renderWeather = this.renderWeather.bind(this);
-  }
+  } 
 
   renderWeather(cityData) {
     // Data comes in 3 hour intervals
@@ -41,18 +74,51 @@ class WeatherList extends Component {
       localTimes.push(localTime);
     }
 
+    // Create a brand new array with only what we need	
+    // from the API	
+    const weatherInfo = [];
+    for (let i = 0; i < count; i++) {	
+      weatherInfo.push({
+        id: ids[i],
+        desc: descriptions[i],
+        localTime: localTimes[i],
+        temps: temps[i]
+      });	
+    }
+
     return (
-      <section key={name}>
-        <Table 
-          name={name}
-          localtimes={localTimes}
-          ids={ids}
-          descs={descriptions}
-          temps={temps}
-          unit={this.props.unit} />
-      </section>
+      <WeatherContainer key={name}>
+        <WeatherGridItem full>
+          <h2>{name}</h2>
+
+          <Chart
+            temps={temps}
+            color="salmon" />
+        </WeatherGridItem>
+
+        {
+          weatherInfo.map((info, i) => {
+            return <WeatherGridItem key={i}>
+              <span className="item">
+                {info.localTime}
+              </span> 
+              <span className="item">
+                {info.temps}
+                {this.props.unit}
+              </span>
+              <span className="item">
+                <i className={"wi wi-owm-" + info.id}></i>
+              </span>
+              <span className="item">
+                {info.desc}
+              </span>
+            </WeatherGridItem>
+          })
+        }
+      </WeatherContainer>
     );
   }
+
   render() {
     return (
       <div>
@@ -66,4 +132,4 @@ function mapStateToProps({ weather }) {
   return { weather };
 }
 
-export default connect(mapStateToProps)(WeatherList);
+export default connect(mapStateToProps, null)(WeatherList);
