@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import 'weathericons/css/weather-icons.min.css';
 
-import SearchBar from '../containers/search_bar';
-import WeatherList from '../containers/weather_list';
+import SearchBar from '../containers/SearchBar';
+import WeatherList from '../containers/WeatherList';
 
 const Header = styled.header`
   background: #67e2e7;
   padding: 2em;
 `;
 
-const Heading1 = styled.h1`
+const H1 = styled.h1`
   color: #eafeff;
   font-family: 'Pacifico', Arial;
   font-size: 2em;
@@ -32,10 +32,10 @@ const Heading1 = styled.h1`
 const App = () => (
   <div>
     <Header>
-      <Heading1>
+      <H1>
         <i className="wi wi-day-sunny" />
         Weather Forecast
-      </Heading1>
+      </H1>
       <SearchBar />
     </Header>
     <WeatherList />

@@ -5,11 +5,10 @@ import tzlookup from 'tz-lookup';
 import styled from 'styled-components';
 import shortid from 'shortid';
 
-import Chart from '../components/chart';
+import Chart from '../components/Chart';
 
 const WeatherContainer = styled.section`
   background: #fff;
-  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   color: hsl(0, 0%, 13%);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -28,6 +27,7 @@ const WeatherContainer = styled.section`
     font-size: 30px;
   }
   @media screen and (min-width: 768px) {
+    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
     max-width: 768px;
     margin: 1em auto;
     svg {

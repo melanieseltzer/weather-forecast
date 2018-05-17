@@ -16,14 +16,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader', 'eslint-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['eslint-loader'],
       },
       {
         test: /\.s?[ac]ss$/,
@@ -89,4 +84,7 @@ module.exports = {
       inject: true,
     }),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };

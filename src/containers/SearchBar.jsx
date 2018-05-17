@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
 import { clear, fetchWeather, updateUnit } from '../actions/index';
-import Radio from '../components/radio';
+import Radio from '../components/Radio';
 
 
 const Form = styled.form`

@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import { injectGlobal } from 'styled-components';
 
-import App from './components/app';
+import App from './components/App';
 import rootReducer from './reducers';
 
 injectGlobal`
@@ -23,10 +23,13 @@ injectGlobal`
 
   body,
   html {
-    background: #F0F3F7;
+    background: #fff;
     font-family: 'Nunito', Arial;
     font-size: 16px;
     height: 100%;
+    @media screen and (min-width: 768px) {
+      background: #F0F3F7;
+    }
   }
   
   @-webkit-keyframes rotation {
