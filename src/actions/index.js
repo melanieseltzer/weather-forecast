@@ -8,32 +8,35 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 export const UPDATE_UNIT = 'UPDATE_UNIT';
 
 export function fetchWeather(city, unit) {
-  if (unit === 'F') {
-    unit = 'imperial';
+  let selectedUnit = unit;
+
+  if (selectedUnit === 'F') {
+    selectedUnit = 'imperial';
   } else {
-    unit = 'metric';
+    selectedUnit = 'metric';
   }
-  const url = `${ROOT_URL}&q=${city},us&units=${unit}`;
-  const request = new Promise((resolve, reject) => {
+
+  const url = `${ROOT_URL}&q=${city},us&units=${selectedUnit}`;
+  const request = new Promise((resolve) => {
     axios.get(url)
-    .then(response => resolve(response.data))
-  })
+      .then(response => resolve(response.data));
+  });
 
   return {
     type: FETCH_WEATHER,
-    payload: request
+    payload: request,
   };
 }
 
 export function updateUnit(unit) {
   return {
     type: UPDATE_UNIT,
-    payload: unit
+    payload: unit,
   };
 }
 
 export function clear() {
   return {
-    type: CLEAR_CITY
+    type: CLEAR_CITY,
   };
 }

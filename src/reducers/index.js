@@ -4,7 +4,7 @@ import UnitReducer from './reducer_unit';
 
 const rootReducer = combineReducers({
   weather: WeatherReducer,
-  unit: UnitReducer
+  unit: UnitReducer,
 });
 
 export default rootReducer;

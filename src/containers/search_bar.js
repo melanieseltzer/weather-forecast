@@ -65,9 +65,9 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
       term: '',
-      unit: 'F'
+      unit: 'F',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -76,14 +76,14 @@ class SearchBar extends Component {
   }
 
   onInputChange(event) {
-    this.setState({ 
-      term: event.target.value
+    this.setState({
+      term: event.target.value,
     });
   }
 
   onUnitChange(event) {
     this.setState({
-      unit: event.target.value
+      unit: event.target.value,
     });
 
     this.props.actions.updateUnit(event.target.value);
@@ -114,13 +114,13 @@ class SearchBar extends Component {
             <Radio
               value="F"
               id="F"
-              checked={'F' === this.state.unit}
+              checked={this.state.unit === 'F'}
               onChange={this.onUnitChange}
             />
             <Radio
               value="C"
               id="C"
-              checked={'C' === this.state.unit}
+              checked={this.state.unit === 'C'}
               onChange={this.onUnitChange}
             />
           </div>
@@ -135,8 +135,8 @@ function mapDispatchToProps(dispatch) {
     actions: {
       clear: bindActionCreators(clear, dispatch),
       updateUnit: bindActionCreators(updateUnit, dispatch),
-      fetchWeather: bindActionCreators(fetchWeather, dispatch)
-    }
+      fetchWeather: bindActionCreators(fetchWeather, dispatch),
+    },
   };
 }
 

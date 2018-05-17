@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const RadioWrapper = styled.div`
@@ -34,20 +35,32 @@ const StyledRadio = styled.input`
   }
 `;
 
-export default class Radio extends Component {
-  render() {
-    return (
-      <RadioWrapper>
-        <StyledRadio
-          type="radio"
-          id={this.props.id}
-          value={this.props.value}
-          name="units"
-          checked={this.props.checked}
-          onChange={this.props.onChange}
-        />
-        <label htmlFor={this.props.id}><span></span> &deg; {this.props.id}</label>
-      </RadioWrapper>
-    );
-  }
-}
+const Radio = (props => (
+  <RadioWrapper>
+    <StyledRadio
+      type="radio"
+      id={props.id}
+      value={props.value}
+      name="units"
+      checked={props.checked}
+      onChange={props.onChange}
+    />
+    <label htmlFor={props.id}><span /> &deg; {props.id}</label>
+  </RadioWrapper>
+));
+
+export default Radio;
+
+Radio.defaultProps = {
+  id: '',
+  value: '',
+  checked: false,
+  onChange: () => {},
+};
+
+Radio.propTypes = {
+  id: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+};

@@ -1,20 +1,9 @@
-import React, { Component } from 'react';
-import SearchBar from '../containers/search_bar';
-import WeatherList from '../containers/weather_list';
+import React from 'react';
 import styled from 'styled-components';
 import 'weathericons/css/weather-icons.min.css';
 
-const Span = styled.span`
-  color: salmon;
-  display: block;
-  margin: 5px auto;
-  padding-left: 1em;
-  text-align: left;
-  width: 100%;
-  @media screen and (min-width: 768px) {
-    width: 768px;
-  }
-`;
+import SearchBar from '../containers/search_bar';
+import WeatherList from '../containers/weather_list';
 
 const Header = styled.header`
   background: #67e2e7;
@@ -32,7 +21,7 @@ const Heading1 = styled.h1`
     color: #fbea7e;
     display: block;
     margin: 10px;
-    -webkit-animation: rotation 15s infinite linear;
+    animation: rotation 15s infinite linear;
   }
   @media screen and (min-width: 415px) {
     font-size: 4em;
@@ -40,19 +29,17 @@ const Heading1 = styled.h1`
   }
 `;
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <Header>
-          <Heading1>
-            <i className="wi wi-day-sunny"></i>
-            Weather Forecast
-          </Heading1>
-          <SearchBar />
-        </Header>
-        <WeatherList />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <Header>
+      <Heading1>
+        <i className="wi wi-day-sunny" />
+        Weather Forecast
+      </Heading1>
+      <SearchBar />
+    </Header>
+    <WeatherList />
+  </div>
+);
+
+export default App;
