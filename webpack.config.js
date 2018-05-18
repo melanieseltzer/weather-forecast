@@ -1,6 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -42,6 +42,11 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         loader: 'file-loader',
+        options: {
+          outputPath: 'font/',
+          name: '[name].[ext]',
+          publicPath: '../font',
+        },
       },
     ],
   },
@@ -53,11 +58,11 @@ module.exports = {
         sourceMap: false,
       }),
       new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: { 
-          discardComments: { 
-            removeAll: true 
+        cssProcessorOptions: {
+          discardComments: {
+            removeAll: true,
           },
-        }
+        },
       }),
     ],
     splitChunks: {
