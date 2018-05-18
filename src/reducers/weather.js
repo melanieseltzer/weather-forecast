@@ -1,4 +1,4 @@
-import { FETCH_WEATHER, CLEAR_CITY } from '../actions/index';
+import { FETCH_WEATHER, CLEAR } from '../actions/index';
 
 export default function (state = [], action) {
   if (action.error) {
@@ -6,10 +6,10 @@ export default function (state = [], action) {
   }
 
   switch (action.type) {
+    case CLEAR:
+      return [];
     case FETCH_WEATHER:
       return [action.payload, ...state];
-    case CLEAR_CITY:
-      return [];
     default:
       return state;
   }

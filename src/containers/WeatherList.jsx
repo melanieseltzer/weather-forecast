@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import momentTimezone from 'moment-timezone';
 import tzlookup from 'tz-lookup';
 import styled from 'styled-components';
 import shortid from 'shortid';
 
+import { fetchWeather } from '../actions/index';
 import Chart from '../components/Chart';
+import Radio from '../components/Radio';
 
 const WeatherContainer = styled.section`
   background: #fff;
@@ -38,6 +41,7 @@ const WeatherContainer = styled.section`
 
 const WeatherGridItem = styled.div`
   grid-column: ${props => (props.full ? 'span 4 / auto' : 'span 1 / auto')};
+  text-align: ${props => (props.left ? 'left' : 'center')};
 `;
 
 class WeatherList extends Component {
@@ -45,6 +49,11 @@ class WeatherList extends Component {
     super(props);
 
     this.renderWeather = this.renderWeather.bind(this);
+    this.onUnitChange = this.onUnitChange.bind(this);
+  }
+
+  onUnitChange(event) {
+    this.props.actions.fetchWeather(this.props.term, event.target.value);
   }
 
   renderWeather(cityData) {
@@ -82,12 +91,26 @@ class WeatherList extends Component {
         id: ids[i],
         desc: descriptions[i],
         localTime: localTimes[i],
-        temps: temps[i],
+        temp: temps[i],
       });
     }
 
     return (
       <WeatherContainer key={name}>
+        <WeatherGridItem full left>
+          <Radio
+            value="F"
+            id="F"
+            checked={this.props.unit === 'F'}
+            onChange={this.onUnitChange}
+          />
+          <Radio
+            value="C"
+            id="C"
+            checked={this.props.unit === 'C'}
+            onChange={this.onUnitChange}
+          />
+        </WeatherGridItem>
         <WeatherGridItem full>
           <h2>{name}</h2>
 
@@ -104,7 +127,7 @@ class WeatherList extends Component {
                 {info.localTime}
               </span>
               <span className="item">
-                {info.temps}
+                {info.temp}
                 {this.props.unit}
               </span>
               <span className="item">
@@ -129,8 +152,20 @@ class WeatherList extends Component {
   }
 }
 
-function mapStateToProps({ weather }) {
-  return { weather };
+function mapStateToProps(state) {
+  return {
+    term: state.term,
+    unit: state.unit,
+    weather: state.weather,
+  };
 }
 
-export default connect(mapStateToProps, null)(WeatherList);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      fetchWeather: bindActionCreators(fetchWeather, dispatch),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherList);

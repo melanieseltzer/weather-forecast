@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
-import { clear, fetchWeather, updateUnit } from '../actions/index';
-import Radio from '../components/Radio';
-
+import { fetchWeather } from '../actions/index';
 
 const Form = styled.form`
   display: grid;
@@ -67,12 +65,10 @@ class SearchBar extends Component {
 
     this.state = {
       term: '',
-      unit: 'F',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onUnitChange = this.onUnitChange.bind(this);
   }
 
   onInputChange(event) {
@@ -81,18 +77,9 @@ class SearchBar extends Component {
     });
   }
 
-  onUnitChange(event) {
-    this.setState({
-      unit: event.target.value,
-    });
-
-    this.props.actions.updateUnit(event.target.value);
-  }
-
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.actions.clear();
-    this.props.actions.fetchWeather(this.state.term, this.state.unit);
+    this.props.actions.fetchWeather(this.state.term, this.props.unit);
   }
 
   render() {
@@ -110,34 +97,25 @@ class SearchBar extends Component {
             <label htmlFor="search">Enter City</label>
           </div>
           <Button type="submit">Get Forecast</Button>
-          <div>
-            <Radio
-              value="F"
-              id="F"
-              checked={this.state.unit === 'F'}
-              onChange={this.onUnitChange}
-            />
-            <Radio
-              value="C"
-              id="C"
-              checked={this.state.unit === 'C'}
-              onChange={this.onUnitChange}
-            />
-          </div>
+
         </Form>
       </section>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    unit: state.unit,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      clear: bindActionCreators(clear, dispatch),
-      updateUnit: bindActionCreators(updateUnit, dispatch),
       fetchWeather: bindActionCreators(fetchWeather, dispatch),
     },
   };
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
