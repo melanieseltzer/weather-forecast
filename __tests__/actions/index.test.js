@@ -1,4 +1,4 @@
-import * as actions from '../index';
+import * as actions from '../../src/actions';
 
 describe('Actions', () => {
   it('should clear the city from the store', () => {

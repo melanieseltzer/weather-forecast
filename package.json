@@ -4,12 +4,15 @@
   "description": "Search for a city and get a 24 hour forecast.",
   "main": "index.js",
   "repository": "git@github.com:melanieseltzer/weather-forecast.git",
+  "homepage": "https://melanieseltzer.github.io/weather-forecast",
   "scripts": {
     "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "npm run lint && NODE_ENV=development webpack-dev-server --mode development --hot --inline --open",
-    "build": "npm run lint && NODE_ENV=production webpack --mode production"
+    "start": "npm run lint && npm run test && NODE_ENV=development webpack-dev-server --mode development --hot --inline --open",
+    "build": "npm run lint && npm run test && NODE_ENV=production webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./setupTests.js"
@@ -25,6 +28,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
+    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -53,7 +57,7 @@
   "dependencies": {
     "@data-ui/sparkline": "0.0.54",
     "axios": "^0.18.0",
-    "lodash": "^4.17.10",
+    "gh-pages": "^1.1.0",
     "moment-timezone": "^0.5.16",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",

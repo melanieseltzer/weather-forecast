@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -12,7 +13,6 @@ module.exports = {
     historyApiFallback: true,
     contentBase: './',
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -25,15 +25,9 @@ module.exports = {
         use: [
           devMode ? {
             loader: 'style-loader',
-            options: {
-              sourceMap: true,
-            },
           } : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
           },
         ],
       },
@@ -58,7 +52,13 @@ module.exports = {
         parallel: true,
         sourceMap: false,
       }),
-      new OptimizeCSSAssetsPlugin({}),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: { 
+          discardComments: { 
+            removeAll: true 
+          },
+        }
+      }),
     ],
     splitChunks: {
       cacheGroups: {
@@ -83,6 +83,7 @@ module.exports = {
       template: './src/index.html',
       inject: true,
     }),
+    new CompressionPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
