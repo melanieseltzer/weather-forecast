@@ -20,11 +20,12 @@ const H1 = styled.h1`
   .wi {
     color: #fbea7e;
     display: block;
+    font-size: 2em;
     margin: 10px;
     animation: rotation 15s infinite linear;
   }
   @media screen and (min-width: 415px) {
-    font-size: 4em;
+    font-size: 3em;
     text-align: center;
   }
 `;

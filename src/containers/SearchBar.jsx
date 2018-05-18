@@ -20,6 +20,7 @@ const Form = styled.form`
 const Input = styled.input`
   background: #affbfe;
   border: 0;
+  border-radius: 0;
   border-bottom: 2px solid #E76C67;
   box-sizing: border-box;
   display: inline-block;
