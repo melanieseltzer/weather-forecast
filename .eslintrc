@@ -2,14 +2,15 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": "airbnb",
   "rules": {
     "import/no-extraneous-dependencies": [
       { 
         "devDependencies": true
-      } 
+      }
     ],
     "react/prop-types": 0,
     "no-unused-expressions": 0,
