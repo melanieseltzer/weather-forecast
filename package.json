@@ -12,7 +12,7 @@
     "start": "npm run lint && npm run test && NODE_ENV=development webpack-dev-server --mode development --hot --inline --open",
     "build": "npm run lint && npm run test && NODE_ENV=production webpack --mode production",
     "prod": "NODE_ENV=production node server.js",
-    "postinstall": "NODE_ENV=production webpack --mode production"
+    "postinstall": "npm run build"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./setupTests.js"
@@ -57,6 +57,7 @@
   "dependencies": {
     "@data-ui/sparkline": "0.0.54",
     "axios": "^0.18.0",
+    "compression": "^1.7.2",
     "express": "^4.16.3",
     "moment-timezone": "^0.5.16",
     "prop-types": "^15.6.1",
