@@ -2,9 +2,9 @@
 
 > Search for a city and get a 24 hour forecast
 
-Simple weather forecast app built with React and Redux. Weather forecast is returned in 3 hour increments for the next 24 hours, in timezone local to whatever city was searched. The results can be switched between Farenheit and Celcius on the fly :sunglasses:
+Simple weather forecast app built with React and Redux. Weather forecast is returned in 3 hour increments for the next 24 hours, in the timezone local to whichever city was searched. The results can be switched between Farenheit and Celcius on the fly :sunglasses:
 
-https://melanieseltzer.github.io/weather-forecast/
+https://weather-forecast-redux.herokuapp.com/
 
 ## Getting Started
 
@@ -38,7 +38,6 @@ npm run build
 
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
-- [Webpack 4](https://webpack.js.org/)
 - [styled-components](https://www.styled-components.com/)
 - [data-ui](https://github.com/williaster/data-ui)
 - [Floating CSS Labels](https://github.com/tonystar/float-label-css)
