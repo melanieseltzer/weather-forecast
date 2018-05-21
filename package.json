@@ -56,6 +56,8 @@
   },
   "dependencies": {
     "@data-ui/sparkline": "0.0.54",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "axios": "^0.18.0",
     "compression": "^1.7.2",
     "express": "^4.16.3",

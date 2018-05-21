@@ -7,6 +7,7 @@ export const CLEAR = 'CLEAR';
 export const FETCH_WEATHER = 'FETCH_WEATHER';
 export const UPDATE_UNIT = 'UPDATE_UNIT';
 export const UPDATE_TERM = 'UPDATE_TERM';
+export const IS_LOADING = 'IS_LOADING';
 
 export function clear() {
   return {
@@ -18,6 +19,13 @@ export function updateTerm(city) {
   return {
     type: UPDATE_TERM,
     payload: city,
+  };
+}
+
+export function isLoading(bool) {
+  return {
+    type: 'IS_LOADING',
+    isLoading: bool,
   };
 }
 
@@ -34,7 +42,9 @@ export function fetchWeather(city, unit) {
   const request = axios.get(url);
 
   return (dispatch) => {
+    dispatch(isLoading(true));
     request.then(({ data }) => {
+      dispatch(isLoading(false));
       dispatch(clear());
       dispatch(updateTerm(city));
       dispatch({

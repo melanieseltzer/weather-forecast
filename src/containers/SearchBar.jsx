@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+import fontawesome from '@fortawesome/fontawesome';
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
 
 import { fetchWeather } from '../actions/index';
+
+fontawesome.library.add(faSpinner);
 
 const Form = styled.form`
   display: grid;
@@ -97,8 +101,16 @@ class SearchBar extends Component {
             />
             <label htmlFor="search">Enter City</label>
           </div>
-          <Button type="submit">Get Forecast</Button>
 
+          { this.props.isLoading === true ?
+            <Button type="submit">
+              <span><i className="fas fa-spinner fa-spin" /></span> Loading...
+            </Button>
+            :
+            <Button type="submit">
+              Get Forecast
+            </Button>
+          }
         </Form>
       </section>
     );
@@ -107,6 +119,7 @@ class SearchBar extends Component {
 
 function mapStateToProps(state) {
   return {
+    isLoading: state.isLoading,
     unit: state.unit,
   };
 }
