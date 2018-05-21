@@ -11,7 +11,8 @@ import Chart from '../components/Chart';
 import Radio from '../components/Radio';
 
 const WeatherContainer = styled.section`
-  background: #fff;
+  background: ${props => (props.danger ? '#f8d7da' : '#fff')};
+  border-left: ${props => (props.danger ? '5px solid salmon' : '')};
   color: hsl(0, 0%, 13%);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -30,7 +31,7 @@ const WeatherContainer = styled.section`
     font-size: 30px;
   }
   @media screen and (min-width: 768px) {
-    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow: ${props => (props.danger ? 'none' : '0 4px 6px 0 hsla(0, 0%, 0%, 0.2)')};
     max-width: 768px;
     margin: 1em auto;
     svg {
@@ -146,7 +147,16 @@ class WeatherList extends Component {
   render() {
     return (
       <div>
-        {this.props.weather.map(this.renderWeather)}
+        {
+          this.props.hasErrored === true ?
+            <WeatherContainer danger>
+              <WeatherGridItem full>
+                <p>Sorry, cannot fetch weather :(</p>
+              </WeatherGridItem>
+            </WeatherContainer>
+          :
+            this.props.weather.map(this.renderWeather)
+        }
       </div>
     );
   }
@@ -154,6 +164,7 @@ class WeatherList extends Component {
 
 function mapStateToProps(state) {
   return {
+    hasErrored: state.hasErrored,
     term: state.term,
     unit: state.unit,
     weather: state.weather,

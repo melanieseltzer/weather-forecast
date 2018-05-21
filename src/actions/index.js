@@ -8,6 +8,7 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 export const UPDATE_UNIT = 'UPDATE_UNIT';
 export const UPDATE_TERM = 'UPDATE_TERM';
 export const IS_LOADING = 'IS_LOADING';
+export const HAS_ERRORED = 'HAS_ERRORED';
 
 export function clear() {
   return {
@@ -24,8 +25,15 @@ export function updateTerm(city) {
 
 export function isLoading(bool) {
   return {
-    type: 'IS_LOADING',
+    type: IS_LOADING,
     isLoading: bool,
+  };
+}
+
+export function hasErrored(bool) {
+  return {
+    type: HAS_ERRORED,
+    hasErrored: bool,
   };
 }
 
@@ -43,18 +51,27 @@ export function fetchWeather(city, unit) {
 
   return (dispatch) => {
     dispatch(isLoading(true));
-    request.then(({ data }) => {
-      dispatch(isLoading(false));
-      dispatch(clear());
-      dispatch(updateTerm(city));
-      dispatch({
-        type: UPDATE_UNIT,
-        payload: unit,
+    request
+      .then((response) => {
+        dispatch(hasErrored(false));
+        dispatch(isLoading(false));
+        dispatch(clear());
+        dispatch(updateTerm(city));
+        dispatch({
+          type: UPDATE_UNIT,
+          payload: unit,
+        });
+        dispatch({
+          type: FETCH_WEATHER,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        if (error.request) {
+          dispatch(clear());
+          dispatch(isLoading(false));
+          dispatch(hasErrored(true));
+        }
       });
-      dispatch({
-        type: FETCH_WEATHER,
-        payload: data,
-      });
-    });
   };
 }

@@ -102,14 +102,13 @@ class SearchBar extends Component {
             <label htmlFor="search">Enter City</label>
           </div>
 
-          { this.props.isLoading === true ?
-            <Button type="submit">
-              <span><i className="fas fa-spinner fa-spin" /></span> Loading...
-            </Button>
+          {
+            this.props.isLoading ?
+              <Button type="submit">
+                <span><i className="fas fa-spinner fa-spin" /></span> Loading...
+              </Button>
             :
-            <Button type="submit">
-              Get Forecast
-            </Button>
+              <Button type="submit">Get Weather</Button>
           }
         </Form>
       </section>
@@ -120,6 +119,7 @@ class SearchBar extends Component {
 function mapStateToProps(state) {
   return {
     isLoading: state.isLoading,
+    hasErrored: state.hasErrored,
     unit: state.unit,
   };
 }
