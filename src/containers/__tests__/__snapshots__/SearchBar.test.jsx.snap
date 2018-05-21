@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar renders correctly 1`] = `
+<section>
+  <styled.form
+    onSubmit={[Function]}
+  >
+    <div
+      className="has-float-label"
+    >
+      <styled.input
+        id="search"
+        onChange={[Function]}
+        placeholder="e.g. Los Angeles"
+        type="text"
+        value=""
+      />
+      <label
+        htmlFor="search"
+      >
+        Enter City
+      </label>
+    </div>
+    <styled.button
+      type="submit"
+    >
+      Get Weather
+    </styled.button>
+  </styled.form>
+</section>
+`;

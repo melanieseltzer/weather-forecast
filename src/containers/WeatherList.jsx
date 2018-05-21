@@ -45,7 +45,7 @@ const WeatherGridItem = styled.div`
   text-align: ${props => (props.left ? 'left' : 'center')};
 `;
 
-class WeatherList extends Component {
+export class WeatherList extends Component {
   constructor(props) {
     super(props);
 
