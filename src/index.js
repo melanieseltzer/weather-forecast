@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { injectGlobal } from 'styled-components';
 
 import App from './components/App';
-import rootReducer from './reducers';
+import store from './store';
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
@@ -87,11 +85,9 @@ injectGlobal`
   }
 `;
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(rootReducer)}>
+  <Provider store={store}>
     <App />
-  </Provider>
-  , document.querySelector('.container'),
+  </Provider>,
+  document.querySelector('.container'),
 );
