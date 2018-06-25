@@ -1,4 +1,4 @@
-# :sunny: Weather Forecast [![Build Status](https://travis-ci.org/melanieseltzer/weather-forecast.svg?branch=master)](https://travis-ci.org/melanieseltzer/weather-forecast)
+# :sunny: Weather Forecast [![Build Status](https://travis-ci.org/melanieseltzer/weather-forecast.svg?branch=master)](https://travis-ci.org/melanieseltzer/weather-forecast) [![dependencies Status](https://david-dm.org/melanieseltzer/weather-forecast/status.svg)](https://david-dm.org/melanieseltzer/weather-forecast) [![devDependencies Status](https://david-dm.org/melanieseltzer/weather-forecast/dev-status.svg)](https://david-dm.org/melanieseltzer/weather-forecast?type=dev)
 
 > Search for a city and get a 24 hour forecast
 
