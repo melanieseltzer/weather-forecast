@@ -35,19 +35,25 @@ const StyledRadio = styled.input`
   }
 `;
 
-const Radio = (props => (
+const Radio = ({
+  id, value, checked, onChange,
+}) => (
   <RadioWrapper>
     <StyledRadio
       type="radio"
-      id={props.id}
-      value={props.value}
+      id={id}
+      value={value}
       name="units"
-      checked={props.checked}
-      onChange={props.onChange}
+      checked={checked}
+      onChange={onChange}
     />
-    <label htmlFor={props.id}><span /> &deg; {props.id}</label>
+    <label htmlFor={id}>
+      <span />
+      &deg;
+      {id}
+    </label>
   </RadioWrapper>
-));
+);
 
 export default Radio;
 

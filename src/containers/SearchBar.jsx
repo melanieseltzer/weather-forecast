@@ -83,11 +83,15 @@ export class SearchBar extends Component {
   }
 
   onFormSubmit(event) {
+    const { term } = this.state;
+    const { actions, unit } = this.props;
     event.preventDefault();
-    this.props.actions.fetchWeather(this.state.term, this.props.unit);
+    actions.fetchWeather(term, unit);
   }
 
   render() {
+    const { term } = this.state;
+    const { isLoading } = this.props;
     return (
       <section>
         <Form onSubmit={this.onFormSubmit}>
@@ -96,19 +100,28 @@ export class SearchBar extends Component {
               type="text"
               id="search"
               placeholder="e.g. Los Angeles"
-              value={this.state.term}
+              value={term}
               onChange={this.onInputChange}
             />
-            <label htmlFor="search">Enter City</label>
+            <label htmlFor="search">
+              Enter City
+            </label>
           </div>
 
           {
-            this.props.isLoading ?
+            isLoading ? (
               <Button type="submit">
-                <span><i className="fas fa-spinner fa-spin" /></span> Loading...
+                <span>
+                  <i className="fas fa-spinner fa-spin" />
+                </span>
+                Loading...
               </Button>
-            :
-              <Button type="submit">Get Weather</Button>
+            )
+              : (
+                <Button type="submit">
+                  Get Weather
+                </Button>
+              )
           }
         </Form>
       </section>

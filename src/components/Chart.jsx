@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Sparkline, LineSeries, PointSeries } from '@data-ui/sparkline';
 
-const Chart = (props => (
+const Chart = ({ temps, color }) => (
   <div>
     <Sparkline
       ariaLabel="24 Hour Weather Forecast"
@@ -15,21 +15,21 @@ const Chart = (props => (
         bottom: 70,
         left: 50,
       }}
-      data={props.temps}
+      data={temps}
     >
       <LineSeries
         showArea={false}
-        stroke={props.color}
+        stroke={color}
       />
       <PointSeries
         points={['all']}
-        fill={props.color}
+        fill={color}
         size={5}
         stroke="#fff"
       />
     </Sparkline>
   </div>
-));
+);
 
 export default Chart;
 

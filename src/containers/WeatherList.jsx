@@ -11,8 +11,8 @@ import Chart from '../components/Chart';
 import Radio from '../components/Radio';
 
 const WeatherContainer = styled.section`
-  background: ${props => (props.danger ? '#f8d7da' : '#fff')};
-  border-left: ${props => (props.danger ? '5px solid salmon' : '')};
+  background: ${({ danger }) => (danger ? '#f8d7da' : '#fff')};
+  border-left: ${({ danger }) => (danger ? '5px solid salmon' : '')};
   color: hsl(0, 0%, 13%);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -31,7 +31,7 @@ const WeatherContainer = styled.section`
     font-size: 30px;
   }
   @media screen and (min-width: 768px) {
-    box-shadow: ${props => (props.danger ? 'none' : '0 4px 6px 0 hsla(0, 0%, 0%, 0.2)')};
+    box-shadow: ${({ danger }) => (danger ? 'none' : '0 4px 6px 0 hsla(0, 0%, 0%, 0.2)')};
     max-width: 768px;
     margin: 1em auto;
     svg {
@@ -41,8 +41,8 @@ const WeatherContainer = styled.section`
 `;
 
 const WeatherGridItem = styled.div`
-  grid-column: ${props => (props.full ? 'span 4 / auto' : 'span 1 / auto')};
-  text-align: ${props => (props.left ? 'left' : 'center')};
+  grid-column: ${({ full }) => (full ? 'span 4 / auto' : 'span 1 / auto')};
+  text-align: ${({ left }) => (left ? 'left' : 'center')};
 `;
 
 export class WeatherList extends Component {
@@ -54,10 +54,13 @@ export class WeatherList extends Component {
   }
 
   onUnitChange(event) {
-    this.props.actions.fetchWeather(this.props.term, event.target.value);
+    const { actions, term } = this.props;
+    actions.fetchWeather(term, event.target.value);
   }
 
   renderWeather(cityData) {
+    const { unit } = this.props;
+
     // Data comes in 3 hour intervals
     // We are fetching 8 lots of data
     // 24hrs / 3 hours = 8
@@ -102,18 +105,20 @@ export class WeatherList extends Component {
           <Radio
             value="F"
             id="F"
-            checked={this.props.unit === 'F'}
+            checked={unit === 'F'}
             onChange={this.onUnitChange}
           />
           <Radio
             value="C"
             id="C"
-            checked={this.props.unit === 'C'}
+            checked={unit === 'C'}
             onChange={this.onUnitChange}
           />
         </WeatherGridItem>
         <WeatherGridItem full>
-          <h2>{name}</h2>
+          <h2>
+            {name}
+          </h2>
 
           <Chart
             temps={temps}
@@ -129,7 +134,7 @@ export class WeatherList extends Component {
               </span>
               <span className="item">
                 {info.temp}
-                {this.props.unit}
+                {unit}
               </span>
               <span className="item">
                 <i className={'wi wi-owm-' + info.id} />
@@ -145,17 +150,19 @@ export class WeatherList extends Component {
   }
 
   render() {
+    const { hasErrored, weather } = this.props;
     return (
       <div>
         {
-          this.props.hasErrored === true ?
+          hasErrored === true ? (
             <WeatherContainer danger>
               <WeatherGridItem full>
-                <p>Sorry, cannot fetch weather :(</p>
+                <p>
+                  Sorry, cannot fetch weather :(
+                </p>
               </WeatherGridItem>
             </WeatherContainer>
-          :
-            this.props.weather.map(this.renderWeather)
+          ) : weather.map(this.renderWeather)
         }
       </div>
     );
